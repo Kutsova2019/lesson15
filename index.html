@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>hw15</title>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+		  list-style: none; 
+		  margin-top:25px; 
+		  background:#ccf; 
+		  height: 50px;
+		  padding-top: 25px;
+		}
+
+		li {
+		  float:left;
+		  position:relative; 
+		  padding: 0 20px;
+		}
+
+		     
+	    li > ul {
+	        position:absolute;
+	        padding: 0 10px;
+	        display:none; 
+	          
+	    }
+	     
+	   
+	    li:hover > ul {
+	        display:block; 
+	        width:250px;      
+	    }
+
+	   li:hover > ul > li {
+	        float:none;
+	    }
+ 
+    </style>
+</head>
+<body>
+  <script>
+    const nav = [
+        {
+        	listText: 'О нас' 
+       	},
+        {
+        	listText: 'Новости'
+        },
+        {
+          	listText: 'Продукция',
+	          submenu: [
+	            {listText: 'Игрушки'},
+	            {listText: 'Творчество'},
+	           ]
+        }
+    ];
+
+     
+
+      const navToDo = data => {
+        const $ul = document.createElement('ul');
+        
+        data.forEach(function(element) {
+          const $li = document.createElement('li');
+          $li.innerText = element.listText;
+
+          
+          if(element.submenu) {
+            $li.classList.add('nav-submenu')
+            const $submenu = navToDo(element.submenu);
+      
+            $li.append($submenu)
+          }
+          $ul.append($li)
+        })
+        
+        return $ul;
+      }
+      
+      const $menu = navToDo(nav);
+      document.body.prepend($menu);
+      
+    </script>
+
+</body>
+</html>
